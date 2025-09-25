@@ -1,6 +1,7 @@
 import React from "react";
 import { useUserGuilds } from "@/hooks/user";
 import { createFileRoute } from "@tanstack/react-router";
+import { useAuth } from "@clerk/clerk-react";
 import {
   Card,
   CardHeader,
@@ -16,7 +17,12 @@ export const Route = createFileRoute("/dashboard/")({
 });
 
 function RouteComponent() {
+  const { isSignedIn } = useAuth();
   const { isLoading, data: ug } = useUserGuilds();
+
+  if (!isSignedIn) {
+    return <div>Please sign in to view your dashboard.</div>;
+  }
 
   if (isLoading) return <div>Loading the Fucking Data...</div>;
 
@@ -41,7 +47,7 @@ const Guild = ({ guild }) => {
         <p>Some additional info here.</p>
       </CardContent>
       <CardFooter>
-        <p>Bot is {guild.hasBot ? "in this guild" : "not in this guild"}</p>
+        <p>Bot is in this guild</p>
       </CardFooter>
     </Card>
   );

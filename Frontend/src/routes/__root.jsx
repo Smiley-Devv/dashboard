@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { Outlet, createRootRouteWithContext } from '@tanstack/react-router';
 
-export const rootRoute = createRootRoute({
+export const Route = createRootRouteWithContext()({
   component: RootComponent,
 });
 
